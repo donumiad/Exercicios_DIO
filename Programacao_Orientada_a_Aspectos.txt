@@ -1,0 +1,37 @@
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+
+Neste exemplo, temos uma classe MyClass com dois métodos: doSomething() e doAnotherThing().
+O aspecto LoggingAspect é definido como um aspecto por meio da anotação @Aspect. 
+Ele contém um ponto de corte definido pela anotação @Before, que especifica que o aspecto 
+será executado antes de qualquer método público na classe MyClass. O código dentro do método 
+beforeMethodExecution() será executado antes da execução desses métodos.
+
+Quando executamos o programa, o aspecto LoggingAspect é entrelaçado no código principal. 
+Assim, sempre que um método público da classe MyClass é chamado, o aspecto é executado 
+primeiro, exibindo a mensagem "Executing a method in MyClass." no console.
+
+@Aspect
+public class LoggingAspect {
+    @Before("execution(public * com.example.MyClass.*(..))")
+    public void beforeMethodExecution() {
+        System.out.println("Executing a method in MyClass.");
+    }
+}
+
+public class MyClass {
+    public void doSomething() {
+        System.out.println("Doing something...");
+    }
+
+    public void doAnotherThing() {
+        System.out.println("Doing another thing...");
+    }
+
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.doSomething();
+        obj.doAnotherThing();
+    }
+}
+
